@@ -1,0 +1,7 @@
+*.log
+*.map
+data/
+# ignore generated js files
+*.js
+# except for those in the libs directory
+!**/libs/*.js
