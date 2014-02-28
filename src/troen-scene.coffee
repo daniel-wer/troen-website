@@ -7,7 +7,10 @@ define ["jquery", "three"], ($, THREE) ->
       container = $("#main-container")
 
       @camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000)
-      @camera.position.z = 100
+      @camera.position.z = 10
+
+      @mouseX = window.innerWidth / 2
+      @mouseY = window.innerHeight / 2
 
       # scene
 
@@ -24,33 +27,41 @@ define ["jquery", "three"], ($, THREE) ->
       @renderer.setSize(window.innerWidth, window.innerHeight)
       container.append(@renderer.domElement)
 
+      container.on('mousemove', => @mouseMove())
+
       @loadBike()
+
+      @animate()
 
 
     animate : ->
 
-      requestAnimationFrame(@animate)
+      requestAnimationFrame(=> @animate())
       @render()
 
 
     render : ->
 
-      #@camera.position.x += ( mouseX - @camera.position.x ) * .05
-      #@camera.position.y += ( - mouseY - @camera.position.y ) * .05
+      @camera.position.x = -@mouseX / 10
+      @camera.position.y = @mouseY / 10
 
       @camera.lookAt(@scene.position)
-
       @renderer.render(@scene, @camera)
+
+
+    mouseMove : (evt) ->
+
+      windowHalfX = window.innerWidth / 2
+      windowHalfY = window.innerHeight / 2
+      @mouseX = (event.clientX - windowHalfX) / 2
+      @mouseY = (event.clientY - windowHalfY) / 2
 
 
     loadBike : ->
 
       manager = new THREE.LoadingManager()
 
-      manager.onProgress = (item, loaded, total) ->
-        console.log(item, loaded, total)
-
-      texture = new THREE.Texture()
+      # texture = new THREE.Texture()
 
       # loader = new THREE.ImageLoader(manager)
       # loader.load('textures/UV_Grid_Sm.jpg', (image) ->
@@ -60,16 +71,16 @@ define ["jquery", "three"], ($, THREE) ->
 
       # )
 
-      loader = new THREE.ObjectLoader(manager)
-      loader.load('data/cycle/HQ_Movie cycle.obj', (object) =>
+      loader = new THREE.JSONLoader(manager)
+      loader.load('data/cycle/lightcycle.js', (geometry) =>
 
-        object.traverse( (child) ->
-          if child instanceof THREE.Mesh
-            child.material.map = texture
+        # object.traverse( (child) ->
+        #   if child instanceof THREE.Mesh
+        #     child.material.map = texture
+        # )
 
-        )
-
-        object.position.y = - 80
-        @scene.add(object)
+        mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial())
+        mesh.position.set(0, 0, 0)
+        @scene.add(mesh)
 
       )
