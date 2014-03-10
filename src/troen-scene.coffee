@@ -1,4 +1,4 @@
-define ["jquery", "three"], ($, THREE) ->
+define ["jquery", "three", "trackballcontrols"], ($, THREE, TrackballControls) ->
 
   class TroenScene
 
@@ -9,52 +9,57 @@ define ["jquery", "three"], ($, THREE) ->
       @camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000)
       @camera.position.z = 10
 
-      @mouseX = window.innerWidth / 2
-      @mouseY = window.innerHeight / 2
-
-      # scene
-
       @scene = new THREE.Scene()
 
-      ambient = new THREE.AmbientLight(0x101030)
+      ambient = new THREE.AmbientLight(0x202030)
       @scene.add(ambient)
 
       directionalLight = new THREE.DirectionalLight(0xffeedd)
-      directionalLight.position.set(0, 0, 1)
+      directionalLight.position.set(10, 10, 10)
       @scene.add(directionalLight)
 
       @renderer = new THREE.WebGLRenderer()
       @renderer.setSize(window.innerWidth, window.innerHeight)
       container.append(@renderer.domElement)
 
-      container.on('mousemove', => @mouseMove())
-
+      @createTrackballControls()
       @loadBike()
 
       @animate()
+
+      window.addEventListener('resize', @onWindowResize, false);
 
 
     animate : ->
 
       requestAnimationFrame(=> @animate())
-      @render()
+      @controls.update()
 
 
     render : ->
 
-      @camera.position.x = -@mouseX / 10
-      @camera.position.y = @mouseY / 10
-
-      @camera.lookAt(@scene.position)
       @renderer.render(@scene, @camera)
 
 
-    mouseMove : (evt) ->
+    createTrackballControls : ->
 
-      windowHalfX = window.innerWidth / 2
-      windowHalfY = window.innerHeight / 2
-      @mouseX = (event.clientX - windowHalfX) / 2
-      @mouseY = (event.clientY - windowHalfY) / 2
+      controls = new THREE.TrackballControls(@camera)
+
+      controls.rotateSpeed = 1.0
+      controls.zoomSpeed = 1.2
+      controls.panSpeed = 0.8
+
+      controls.noZoom = false
+      controls.noPan = true
+
+      controls.staticMoving = true
+      controls.dynamicDampingFactor = 0.3
+
+      controls.keys = [65, 83, 68]
+
+      controls.addEventListener('change', => @render() )
+
+      @controls = controls
 
 
     loadBike : ->
@@ -82,5 +87,17 @@ define ["jquery", "three"], ($, THREE) ->
         mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial())
         mesh.position.set(0, 0, 0)
         @scene.add(mesh)
-
+        @render()
       )
+
+
+    onWindowResize : ->
+
+      @camera.aspect = window.innerWidth / window.innerHeight
+      @camera.updateProjectionMatrix()
+
+      @renderer.setSize(window.innerWidth, window.innerHeight)
+
+      @controls.handleResize();
+
+      @render()

@@ -6,6 +6,7 @@ require.config
     "jquery" : "jquery-2.1.0.min"
     "bootstrap" : "bootstrap.min"
     "troen-scene" : "../troen-scene"
+    "trackballcontrols" : "trackballcontrols"
 
   shim :
     "bootstrap" : 
@@ -14,6 +15,8 @@ require.config
       exports: "_"
     "three" :
       exports: "THREE"
+    "trackballcontrols" :
+      deps: [ "three" ]
 
 
 require(["troen-scene", "lodash", "jquery", "bootstrap"], (TroenScene) ->
