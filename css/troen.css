@@ -3,5 +3,25 @@ body {
 }
 
 #main-container {
-	padding-top: 50px;
+	padding-top: 60px;
+}
+
+#screenshots a {
+	display: block;
+	float: left;
+	padding: 4px;
+	margin-right: 10px;
+	margin-top: 10px;
+	opacity: 0.8;
+	-webkit-transition: all 0.3s linear;
+	-moz-transition: all 0.3s linear;
+	transition: all 0.3s linear;
+}
+
+#screenshots a:hover {
+	opacity: 1;
+}
+
+#screenshots a img {
+  border: 6px solid #e1d9ec;
 }

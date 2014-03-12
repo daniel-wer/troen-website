@@ -4,7 +4,7 @@ define ["jquery", "three", "trackballcontrols"], ($, THREE, TrackballControls) -
 
     constructor : ->
 
-      container = $("#main-container")
+      container = $("#lightcycle-container")
 
       @camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000)
       @camera.position.z = 10
@@ -69,7 +69,7 @@ define ["jquery", "three", "trackballcontrols"], ($, THREE, TrackballControls) -
       # texture = new THREE.Texture()
 
       # loader = new THREE.ImageLoader(manager)
-      # loader.load('textures/UV_Grid_Sm.jpg', (image) ->
+      # loader.load('data/cycle/MG_MovieCycle_Body_DIFF.tga', (image) ->
 
       #   texture.image = image
       #   texture.needsUpdate = true
@@ -84,14 +84,16 @@ define ["jquery", "three", "trackballcontrols"], ($, THREE, TrackballControls) -
         #     child.material.map = texture
         # )
 
-        mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial())
+        material = new THREE.MeshLambertMaterial()#colorDiffuse: texture)
+
+        mesh = new THREE.Mesh(geometry, material)
         mesh.position.set(0, 0, 0)
         @scene.add(mesh)
         @render()
       )
 
 
-    onWindowResize : ->
+    onWindowResize : =>
 
       @camera.aspect = window.innerWidth / window.innerHeight
       @camera.updateProjectionMatrix()

@@ -7,6 +7,7 @@ require.config
     "bootstrap" : "bootstrap.min"
     "troen-scene" : "../troen-scene"
     "trackballcontrols" : "trackballcontrols"
+    "lightbox" : "lightbox-2.6.min"
 
   shim :
     "bootstrap" : 
@@ -17,10 +18,12 @@ require.config
       exports: "THREE"
     "trackballcontrols" :
       deps: [ "three" ]
+    "lightbox" :
+      deps: [ "jquery" ]
 
 
-require(["troen-scene", "lodash", "jquery", "bootstrap"], (TroenScene) ->
+require(["troen-scene", "lodash", "jquery", "bootstrap", "lightbox"], (TroenScene) ->
   console.log THREE
   
-  new TroenScene()
+  #new TroenScene()
 )
