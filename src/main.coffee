@@ -24,6 +24,12 @@ require.config
 
 require(["troen-scene", "lodash", "jquery", "bootstrap", "lightbox"], (TroenScene) ->
   console.log THREE
-  
-  #new TroenScene()
+
+  # lazy initialize the troenScene once the tab was activated
+  troenScene = undefined
+
+  $('a[href="#lightcycle"]').click( (evt) ->
+    evt.preventDefault()
+    troenScene = new TroenScene() unless troenScene
+  )
 )
