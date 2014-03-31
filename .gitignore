@@ -5,3 +5,4 @@ data/
 *.js
 # except for those in the libs directory
 !**/libs/*.js
+!**/doxygen/*.js
