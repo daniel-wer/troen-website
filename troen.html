@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Troen</title>
+    <title>Tr&ouml;n</title>
     <script data-main="js/main" src="js/libs/require.js"></script>
     <style type="text/css">
       @font-face {
@@ -20,7 +20,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <ul class="nav navbar-nav">
         <li class="navbar-header active">
-          <a id="home-tab" class="navbar-brand" href="#home" data-toggle="tab">Troen</a>
+          <a id="home-tab" class="navbar-brand" href="#home" data-toggle="tab">Tr&ouml;n</a>
         </li>
         <li><a id="download-tab" href="#">Download</a>
         <li><a href="#screenshots" data-toggle="tab">Screenshots</a></li>
@@ -33,9 +33,9 @@
       <div class="tab-content">
         <div class="tab-pane fade in active" id="home">
           <div class="page-header">
-            <h1>Troen <small>Game Programming 13/14</small></h1>
+            <h1>Tr&ouml;n <small>Game Programming 13/14</small></h1>
           </div>
-          <p>Troen is an action packed 3D-remake of the classic Armagetron featuring customizable maps, powerups, AI and multiplayer!</p>
+          <p>Tr&ouml;n is an action packed 3D-remake of the classic Armagetron<br>featuring customizable maps, powerups, AI and multiplayer!</p>
           <div id="video">
             <h2>Trailer</h2>
             <iframe width="840" height="500" src="//www.youtube.com/embed/Bt6clk4LNRk?rel=0" frameborder="0" allowfullscreen></iframe>
@@ -54,7 +54,7 @@
               <li>multiplayer</li>
               <li>splitscreen</li>
               <li>build your own levels</li>
-              <li>items</li>
+              <li>various items</li>
               <li>bended views</li>
               <li>Oculus Rift</li>
             </ul>
@@ -74,6 +74,9 @@
                 </div>
                 <div class="row">
                   <a href="data/screenshots/glow2.png" data-lightbox="troen" title="Glow"><img src="data/screenshots/thumbs/glow2_thumb.png"></a>
+                </div>
+                <div class="row">
+                  <a href="data/screenshots/blender1.png" data-lightbox="troen" title="Blender render"><img src="data/screenshots/thumbs/blender1_thumb.png"></a>
                 </div>
               </div>
               <div class="col-lg-4">
@@ -95,8 +98,11 @@
             </div>
           </div>
         </div>
-        <div class="tab-pane fade" id="docs">...</div>
+        <div class="tab-pane fade" id="docs">
+          <iframe id="docs-iframe" src="data/doxygen/index.html"></iframe>
+        </div>
         <div class="tab-pane fade" id="lightcycle">
+          <div id="lightcycle-instructions">Leftclick/Drag to rotate - Mousewheel to zoom</div>
           <div id="lightcycle-container"></div>
         </div>
         <div class="tab-pane fade" id="disclaimer">
