@@ -28,8 +28,26 @@ require(["troen-scene", "lodash", "jquery", "bootstrap", "lightbox"], (TroenScen
   # lazy initialize the troenScene once the tab was activated
   troenScene = undefined
 
-  $('a[href="#lightcycle"]').click( (evt) ->
+  $("#cycle-tab").one("shown.bs.tab", (evt) ->
     evt.preventDefault()
     troenScene = new TroenScene() unless troenScene
   )
+
+  # attach tab handler
+  scrollToDownload = ->
+    aTag = $("#download")
+    $('html,body').animate({scrollTop: aTag.offset().top}, 'slow')
+
+  scrollToTop = ->
+    $('html,body').animate({scrollTop: 0}, 'slow')
+
+  $("#download-tab").click( ->
+    unless $("#home.active").length
+      $("#home-tab").tab("show")
+      $("#home-tab").one("shown.bs.tab", scrollToDownload)
+    else
+      scrollToDownload()
+  )
+
+  $("#home-tab").click(scrollToTop)
 )

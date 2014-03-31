@@ -3,12 +3,12 @@ body {
 }
 
 #main-container {
-	padding-top: 60px;
+	padding-top: 51px;
+	text-align: center;
 }
 
 #screenshots a {
-	display: block;
-	float: left;
+	display: inline-block;
 	padding: 4px;
 	margin-right: 10px;
 	margin-top: 10px;
@@ -24,4 +24,26 @@ body {
 
 #screenshots a img {
   border: 6px solid #e1d9ec;
+}
+
+#screenshots .container {
+	margin: auto;
+}
+
+h2 {
+	margin-top: 60px;
+}
+
+#credits {
+	margin-top: 60px;
+}
+
+#features ul {
+	display: inline-block;
+	text-align: left;
+}
+
+#disclaimer {
+	padding: 15px;
+	text-align: left;
 }

@@ -6,7 +6,15 @@ define ["jquery", "three", "trackballcontrols"], ($, THREE, TrackballControls) -
 
       container = $("#lightcycle-container")
 
-      @camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000)
+      navbarHeight = $("nav").height()
+
+      @camera = new THREE.PerspectiveCamera(
+        45
+        window.innerWidth / (window.innerHeight - navbarHeight)
+        1
+        2000
+      )
+
       @camera.position.z = 10
 
       @scene = new THREE.Scene()
@@ -19,10 +27,10 @@ define ["jquery", "three", "trackballcontrols"], ($, THREE, TrackballControls) -
       @scene.add(directionalLight)
 
       @renderer = new THREE.WebGLRenderer()
-      @renderer.setSize(window.innerWidth, window.innerHeight)
+      @renderer.setSize(window.innerWidth, window.innerHeight - navbarHeight)
       container.append(@renderer.domElement)
 
-      @createTrackballControls()
+      @createTrackballControls(container[0])
       @loadBike()
 
       @animate()
@@ -41,9 +49,9 @@ define ["jquery", "three", "trackballcontrols"], ($, THREE, TrackballControls) -
       @renderer.render(@scene, @camera)
 
 
-    createTrackballControls : ->
+    createTrackballControls : (domElement) ->
 
-      controls = new THREE.TrackballControls(@camera)
+      controls = new THREE.TrackballControls(@camera, domElement)
 
       controls.rotateSpeed = 1.0
       controls.zoomSpeed = 1.2
@@ -95,10 +103,11 @@ define ["jquery", "three", "trackballcontrols"], ($, THREE, TrackballControls) -
 
     onWindowResize : =>
 
-      @camera.aspect = window.innerWidth / window.innerHeight
+      navbarHeight = $("nav").height()
+      @camera.aspect = window.innerWidth / (window.innerHeight - navbarHeight)
       @camera.updateProjectionMatrix()
 
-      @renderer.setSize(window.innerWidth, window.innerHeight)
+      @renderer.setSize(window.innerWidth, window.innerHeight - navbarHeight)
 
       @controls.handleResize();
 
